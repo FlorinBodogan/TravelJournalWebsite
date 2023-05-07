@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TravelJournalAPI.Server.Entities;
+using TravelJournalAPI.Shared.Entities;
 
 namespace TravelJournalAPI.Server.Data
 {

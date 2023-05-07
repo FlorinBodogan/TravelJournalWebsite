@@ -1,4 +1,4 @@
-﻿namespace TravelJournalAPI.Server.Entities
+﻿namespace TravelJournalAPI.Shared.Entities
 {
     public class User
     {

@@ -1,4 +1,4 @@
-﻿namespace TravelJournalAPI.Server.Entities
+﻿namespace TravelJournalAPI.Shared.Entities
 {
     public class Image
     {
@@ -6,7 +6,7 @@
         public string Description { get; set; }
         public string Location { get; set; }
         public string Url { get; set; }
-        public Holiday Holiday { get; set; }  
+        public Holiday Holiday { get; set; }
         public Guid HolidayId { get; set; }
     }
 }
