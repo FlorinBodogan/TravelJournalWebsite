@@ -22,12 +22,10 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://example.com",
-                                              "http://www.contoso.com");
-                      });
+    options.AddPolicy("AllowAnyOrigin",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
 });
 
 
@@ -46,7 +44,8 @@ else
 }
 
 
-
+app.UseCors("AllowAnyOrigin");
+app.UseCors();
 builder.Services.AddControllers();
 app.UseHttpsRedirection();
 
