@@ -18,6 +18,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +34,19 @@ else
     app.UseHsts();
 }
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://example.com",
+                                              "http://www.contoso.com");
+                      });
+});
+
+builder.Services.AddControllers();
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
