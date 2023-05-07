@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using TravelJournalAPI.Server.Data;
 using TravelJournalAPI.Shared.Entities;
+using TravelJournalAPI.Shared.IRepositories;
 using TravelJournalAPI.Shared.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,10 +14,12 @@ namespace TravelJournalAPI.Server.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(DataContext context)
+        public UsersController(DataContext context, IUserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -35,14 +39,12 @@ namespace TravelJournalAPI.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<UserModel>> Post([FromBody]UserModel user)
         {
-            _context.Users.Add(new User()
-            {   
-                Name = user.Name,
-                Email = user.Email,
-                Password = user.Password,
+            await _userRepository.AddAsync(new User()
+            {
+                   Name = user.Name,
+                   Email = user.Email,
+                   Password = user.Password,
             });
-            await _context.SaveChangesAsync();
-
             return CreatedAtAction("Get", user);
         }
 
