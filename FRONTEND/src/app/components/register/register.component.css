@@ -1,0 +1,159 @@
+.register-section{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    justify-content: center;
+    background-color: #000;
+}
+
+.register-box{
+    width: 30vw;
+    padding-top: 20vh;
+    padding-bottom: 7vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+  }
+
+.register-title{
+    text-align: center;
+    color: #e93131;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: start;
+    row-gap: 3vh;
+}
+
+.register-form label{
+    display: block;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    color: #ddd;
+}
+
+.register-form input, .register-form select{
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.8rem;
+    font-family: inherit;
+    color: inherit;
+    border: none;
+    background-color: #ddd;
+    border-radius: 9px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.register-form input{
+    color: #000;
+}
+
+.register-form input::placeholder{
+    color: #464646;
+}
+
+.register-field{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #eee;
+    font-size: 2.4rem;
+}
+
+.btn--form{
+    background-color: #e93131;
+    color: #eee;
+    border: 2px solid #e93131;
+    border-radius: 30px;
+    align-self: center;
+    padding: 1.4rem 2.4rem;
+    transition: all 0.5s;
+    font-size: 2.1rem;
+    cursor: pointer;
+}
+
+.btn--form:hover, .btn--form:active{
+    background-color: inherit;
+    color: #e93131;
+    border: 2px solid #e93131;
+}
+
+/***********************************************************************************/
+/* ------------------ MEDIA QUERIES ---------------------------------------------- */
+/***********************************************************************************/
+
+/******************************/
+/* ----- Bellow 1100px ---- */
+/******************************/
+
+@media(max-width:68.75em){
+    .register-box{
+        width: 40vw;
+    }
+}
+
+/******************************/
+/* ----- Bellow 650px ---- */
+/******************************/
+
+/* @media(max-width:43.125em){
+    .register-section{
+        height: 100vh;
+    }
+
+    .register-box{
+        width: 40vw;
+        padding: 0;
+    }
+} */
+
+/******************************/
+/* ----- Bellow 600px ---- */
+/******************************/
+
+@media(max-width:37.5em){
+    .register-box{
+        width: 50vw;
+    }
+}
+
+/******************************/
+/* ----- Bellow 394px ---- */
+/******************************/
+
+@media(max-width:24.6875em){
+    .register-box{
+        width: 60vw;
+    }
+}
+
+/******************************/
+/* ----- Bellow 330px ---- */
+/******************************/
+
+@media(max-width:20.625em){
+    .register-title{
+        font-size: 3.6rem;
+    }
+}

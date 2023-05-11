@@ -1,0 +1,46 @@
+<body>
+  <div class="home container">
+    <section class="hero-section">
+      <div class="home-container">
+        <div class="hero-text-box">
+          <h3
+            class="heading-tertiary heading-tertiary--hero"
+            *ngIf="!isAuthenticated"
+          >
+            - We Provide
+          </h3>
+          <h1
+            class="heading-primary heading-primary--hero"
+            *ngIf="!isAuthenticated"
+          >
+            The Perfect Travel Journal Manager
+          </h1>
+          <p class="hero-text" *ngIf="!isAuthenticated">
+            Post your own holiday
+          </p>
+          <a routerLink="/about" class="btn btn--home" *ngIf="!isAuthenticated"
+            >About</a
+          >
+
+          <h3
+            class="heading-tertiary heading-tertiary--hero"
+            *ngIf="isAuthenticated"
+          ></h3>
+          <div *ngFor="let user of userInfo$ | async">
+            <h1
+              \
+              class="heading-primary heading-primary--hero"
+              *ngIf="isAuthenticated"
+            >
+              Welcome back, {{ user.name }}!
+            </h1>
+          </div>
+          <p class="hero-text" *ngIf="isAuthenticated">Review your holidays.</p>
+          <a routerLink="/recipes" class="btn btn--home" *ngIf="isAuthenticated"
+            >Holidays</a
+          >
+        </div>
+      </div>
+    </section>
+  </div>
+</body>

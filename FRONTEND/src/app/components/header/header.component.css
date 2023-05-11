@@ -1,0 +1,147 @@
+.nav {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: fit-content;
+    width: 100vw;
+    background-color: transparent;
+    border-bottom: 0.5px solid #797474;
+    z-index: 2;
+}
+
+.nav-bar{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 2s;
+    padding: 1.2rem;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    transition: all 0.5s;
+    background-color: rgba(53, 59, 64, 0.9);
+    z-index: 2;
+}
+
+.logo-img{
+    font-size: 2.4rem;
+    height: 50px;
+    width: 60px;
+}
+
+.nav-bar-list{
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+    justify-content: flex-end;
+    list-style: none;
+}
+
+.nav-bar-link:link, .nav-bar-link:visited{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.nav-bar-link:hover, .nav-bar-link:active, .nav-bar-link.active{
+    color: #e93636;
+}  
+
+.btn--nav{
+    border-radius: 30px;
+    padding: 1.4rem 3.2rem;
+    align-self: end;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.btn-mobile-nav{
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: none;
+}
+
+.icon{
+    font-size: 3.6rem;
+    color: #fff;
+}
+
+.icon[name = "close-outline"]{
+    display: none;
+}
+
+/***********************************************************************************/
+/* ------------------ MEDIA QUERIES ---------------------------------------------- */
+/***********************************************************************************/
+
+/******************************/
+/* ----- Smaller Tablets ---- */
+/******************************/
+
+@media(max-width:43em){
+    .btn-mobile-nav{
+        display: block;
+        z-index: 9999;
+    }
+
+    .container{
+        padding: 0;
+    }
+    
+    .nav-bar-list{
+        background-color: #202020;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        overflow-x: hidden;
+        
+        display: flex;
+        flex-direction: column;
+        gap: 5vh;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.5s ease-in;
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+    }
+    
+    .nav-open .nav-bar-list{
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+    }
+    
+    .nav-open .icon[name = "close-outline"]{
+        display: none;
+    }
+    
+    .nav-open .icon[name = "menu-outline"]{
+        display: block;
+    }
+    
+    .nav-bar-link:link, .nav-bar-link:visited{
+        font-size: 3rem;
+        text-transform: none;
+    }
+
+    .btn--nav{
+        padding: 2.4rem 3.2rem;
+        font-weight: 600;
+        font-size: 2rem;
+    }
+}

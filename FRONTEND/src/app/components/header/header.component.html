@@ -1,0 +1,64 @@
+<header [class.sticky]="sticky" [ngClass]="menuClass">
+  <div class="nav container">
+    <div class="nav-bar">
+      <div class="logo" routerLink="/home">
+        <img class="logo-img" src="assets/img/logo.png" />
+      </div>
+      <ul class="nav-bar-list">
+        <li (click)="selectPage()">
+          <a class="nav-bar-link" routerLink="/home" routerLinkActive="active"
+            >Home</a
+          >
+        </li>
+        <li (click)="selectPage()">
+          <a class="nav-bar-link" routerLink="/about" routerLinkActive="active"
+            >About</a
+          >
+        </li>
+        <li (click)="selectPage()" *ngIf="!isAuthenticated">
+          <a
+            class="nav-bar-link"
+            routerLink="/register"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </li>
+        <li (click)="selectPage()" *ngIf="!isAuthenticated">
+          <a class="nav-bar-link" routerLink="/login" routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+        <li (click)="selectPage()" *ngIf="isAuthenticated">
+          <a
+            class="nav-bar-link"
+            routerLink="/account"
+            routerLinkActive="active"
+            >Account</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav-bar-link"
+            *ngIf="isAuthenticated"
+            (click)="logout()"
+            routerLink="/home"
+            >Logout <fa-icon [icon]="faRightFromBracket"></fa-icon
+          ></a>
+        </li>
+        <li><a routerLink="/post" class="btn btn--nav">Post a Holiday</a></li>
+      </ul>
+      <button class="btn-mobile-nav" (click)="toggleMenu()">
+        <fa-icon
+          [icon]="isMenuOpen ? faToggleOff : faToggleOn"
+          name="menu-outline"
+          class="icon"
+        ></fa-icon>
+        <fa-icon
+          [icon]="isMenuOpen ? faToggleOn : faToggleOff"
+          name="close-outline"
+          class="icon"
+        ></fa-icon>
+      </button>
+    </div>
+  </div>
+</header>

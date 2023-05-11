@@ -1,0 +1,30 @@
+<body>
+  <div class="login-section container">
+    <div class="login-box">
+      <div>
+        <h1 class="login-title">Sign In</h1>
+      </div>
+      <form (ngSubmit)="login()" class="login-form">
+        <div class="login-field">
+          <label for="user-name">Email</label>
+          <input
+            type="text"
+            formControlName="email"
+            placeholder="George@gmail.com"
+            required
+          />
+        </div>
+        <div class="login-field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="123456"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn--form">Sign In</button>
+      </form>
+    </div>
+  </div>
+</body>
