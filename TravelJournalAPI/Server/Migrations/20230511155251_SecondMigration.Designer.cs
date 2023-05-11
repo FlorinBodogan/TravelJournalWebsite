@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelJournalAPI.Server.Data;
 
@@ -10,9 +11,10 @@ using TravelJournalAPI.Server.Data;
 namespace TravelJournalAPI.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230511155251_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -21,9 +23,6 @@ namespace TravelJournalAPI.Server.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndDate")
@@ -40,6 +39,7 @@ namespace TravelJournalAPI.Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("UserId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -107,7 +107,9 @@ namespace TravelJournalAPI.Server.Migrations
                 {
                     b.HasOne("TravelJournalAPI.Shared.Entities.User", "User")
                         .WithMany("Holidays")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

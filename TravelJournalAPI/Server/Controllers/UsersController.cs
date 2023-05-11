@@ -35,9 +35,34 @@ namespace TravelJournalAPI.Server.Controllers
             return "value";
         }
 
+        [HttpGet("GetHoliday")]
+        public async Task<ActionResult<IEnumerable<HolidayModel>>> GetHoliday( Guid userId)
+        {
+            var holiday = await _userRepository.GetHolidayById(userId);
+
+            var holidays = new List<HolidayModel>();
+
+            foreach (var item in holiday)
+            {
+                var holidayModel = new HolidayModel()
+                {
+                    startDate = item.StartDate,
+                    endDate = item.EndDate,
+                    Title = item.Title,
+                    Description = item.Description,
+                    Location = item.Location
+                };
+
+                holidays.Add(holidayModel);
+            }
+
+            return holidays;
+        }
+               
+
         // POST api/<UsersController>
-        [HttpPost]
-        public async Task<ActionResult<UserModel>> Post([FromBody]UserModel user)
+        [HttpPost("PostUser")]
+        public async Task<ActionResult<UserModel>> PostUser([FromBody]UserModel user)
         {
             await _userRepository.AddAsync(new User()
             {
@@ -46,6 +71,20 @@ namespace TravelJournalAPI.Server.Controllers
                    Password = user.Password,
             });
             return CreatedAtAction("Get", user);
+        }
+
+        [HttpPost("PostHoliday")]
+        public async Task<ActionResult<HolidayModel>> PostHoliday([FromBody] HolidayModel holiday)
+        {
+            await _userRepository.AddHolidayAsync(new Holiday()
+            {
+                StartDate = holiday.startDate,
+                EndDate = holiday.endDate,
+                Location = holiday.Location,
+                Title = holiday.Title,
+                Description = holiday.Description,
+            });
+            return CreatedAtAction("Get", holiday);
         }
 
         // PUT api/<UsersController>/5
