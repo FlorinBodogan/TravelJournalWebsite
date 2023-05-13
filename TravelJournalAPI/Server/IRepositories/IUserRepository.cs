@@ -16,5 +16,7 @@ namespace TravelJournalAPI.Shared.IRepositories
         public Task<string> AddHolidayAsync(Holiday holiday);
 
         public Task<IEnumerable<Holiday>> GetHolidayById(Guid userId);
+
+        public Task<IEnumerable<User>> GetAllUsers();
     }
 }

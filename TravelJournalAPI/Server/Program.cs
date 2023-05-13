@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using TravelJournalAPI.Server.Data;
+using TravelJournalAPI.Server.IServices;
+using TravelJournalAPI.Server.Services;
 using TravelJournalAPI.Shared.IRepositories;
 using TravelJournalAPI.Shared.Repositories;
 
@@ -16,9 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddScoped<IUserRepository, UserRepository>().AddScoped<IUserService, UserService>();
 
 builder.Services.AddCors(options =>
 {

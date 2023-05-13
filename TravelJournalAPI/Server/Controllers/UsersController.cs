@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using TravelJournalAPI.Server.Data;
+using TravelJournalAPI.Server.IServices;
+using TravelJournalAPI.Server.Services;
 using TravelJournalAPI.Shared.Entities;
 using TravelJournalAPI.Shared.IRepositories;
 using TravelJournalAPI.Shared.Models;
@@ -13,12 +15,12 @@ namespace TravelJournalAPI.Server.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IUserService _userService; 
         private readonly IUserRepository _userRepository;
 
-        public UsersController(DataContext context, IUserRepository userRepository)
+        public UsersController(IUserService userService, IUserRepository userRepository)
         {
-            _context = context;
+            _userService = userService;
             _userRepository = userRepository;
         }
 
@@ -58,7 +60,32 @@ namespace TravelJournalAPI.Server.Controllers
 
             return holidays;
         }
-               
+
+        // de sters
+        [HttpGet("GetAllUsers")]
+        public async Task<ActionResult<IEnumerable<User>>> AllUsers()
+        {
+            var users = await _userRepository.GetAllUsers();
+
+            var userList = new List<User>();
+           
+            foreach (var user in users)
+            {
+                var newUser = new User()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    Holidays = user.Holidays,
+                    Status = user.Status,
+                    Password = user.Password,
+                };
+
+                userList.Add(newUser);
+            }
+            return userList;
+        }
+
 
         // POST api/<UsersController>
         [HttpPost("PostUser")]
@@ -83,8 +110,19 @@ namespace TravelJournalAPI.Server.Controllers
                 Location = holiday.Location,
                 Title = holiday.Title,
                 Description = holiday.Description,
+                UserId = holiday.UserId
             });
             return CreatedAtAction("Get", holiday);
+        }
+
+        [HttpGet("GetUserStatus")]
+        public async Task<ActionResult<StatusModel>> GetUserStatus(Guid userId)
+        {
+            var status = await _userService.GetUsersStatusById(userId);
+            return new StatusModel()
+            {
+                UserStatus = status,
+            };
         }
 
         // PUT api/<UsersController>/5

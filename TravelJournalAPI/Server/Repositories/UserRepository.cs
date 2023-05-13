@@ -11,18 +11,18 @@ namespace TravelJournalAPI.Shared.Repositories
     {
         protected readonly DataContext _dataContext;
 
-        public UserRepository(DataContext dataContext) 
-        { 
+        public UserRepository(DataContext dataContext)
+        {
             _dataContext = dataContext;
         }
 
         public async Task<string> AddAsync(User user)
         {
-            if(await CheckIfEmailExistsAsync(user.Email))
+            if (await CheckIfEmailExistsAsync(user.Email))
             {
                 return "This email already exists!";
             }
-
+            user.Id = Guid.NewGuid();
             await _dataContext.Users.AddAsync(user);
             await _dataContext.SaveChangesAsync();
 
@@ -48,14 +48,39 @@ namespace TravelJournalAPI.Shared.Repositories
         public async Task<string> AddHolidayAsync(Holiday holiday)
         {
             await _dataContext.Holidays.AddAsync(holiday);
-            await _dataContext.SaveChangesAsync();
+
+            // obține utilizatorul corespunzător concediului prin proprietatea de navigare inversă
+            var user = await _dataContext.Users.FindAsync(holiday.UserId);
+            if (user != null)
+            {
+                // adaugă concediul la colecția de concedii a utilizatorului prin proprietatea de navigare inversă
+                user.Holidays.Add(holiday);
+                _dataContext.Users.Update(user);
+                await _dataContext.SaveChangesAsync();
+            }
+            else
+            {
+                return "User not found.";
+            }
 
             return "Holiday created!";
         }
-        
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await _dataContext.Users.Include(u => u.Holidays).ToListAsync();
+        }
+
+        //public async Task<IEnumerable<User>> GetAllUsers()
+        //{
+        //    return await _dataContext.Users.ToListAsync();
+        //}
+
         public async Task<IEnumerable<Holiday>> GetHolidayById(Guid userId)
         {
             return await _dataContext.Holidays.Where(h => h.UserId == userId).ToListAsync();
         }
+
+       
     }
 }

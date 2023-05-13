@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace TravelJournalAPI.Shared.Models
 {
-    public class UserModel
-    { 
-        public string Name { get; set; }
+    public class AllUsersModel
+    {
 
-        public string Email { get; set; }
-
-        public string Password { get; set; }
     }
 }
