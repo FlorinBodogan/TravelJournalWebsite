@@ -14,12 +14,10 @@ namespace TravelJournalAPI.Server.Services
         }
 
         public async Task<string> GetUsersStatusById(Guid id)
-        {
-
-            try
+        {   
+           var holidays = await _userRepository.GetHolidayById(id);
+            if (holidays.Count() != 0)
             {
-                var holidays = await _userRepository.GetHolidayById(id);
-
                 var numberOfHolidays = holidays.Count();
 
                 if (numberOfHolidays > 2 && numberOfHolidays <= 4)
@@ -32,10 +30,10 @@ namespace TravelJournalAPI.Server.Services
                 }
                 return "Beginner";
             }
-            catch (Exception ex)
-            {
-                return $"User with id {id} not found.";
-            }  
+            else
+
+             return $"User with id {id} not found.";
+
         }
     }
 }
