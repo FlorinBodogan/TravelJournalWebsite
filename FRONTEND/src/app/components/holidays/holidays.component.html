@@ -1,0 +1,16 @@
+<div *ngIf="holidays$ | async as holidays" class="holidays-section">
+  <div *ngFor="let holiday of holidays" class="holiday">
+    <h1 class="title">{{ holiday.title }}</h1>
+    <div class="image">
+      <img
+        src="assets/img/gallery16.jpg"
+        class="img-user"
+        alt="holiday photo"
+      />
+    </div>
+    <div class="location">{{ holiday.location }}</div>
+    <div class="description">{{ holiday.description }}</div>
+    <div class="startDate">{{ holiday.startDate | date }}</div>
+    <div class="endDate">{{ holiday.endDate | date }}</div>
+  </div>
+</div>

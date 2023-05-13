@@ -15,6 +15,14 @@
             >About</a
           >
         </li>
+        <li (click)="selectPage()">
+          <a
+            class="nav-bar-link"
+            routerLink="/holidays"
+            routerLinkActive="active"
+            >Holidays</a
+          >
+        </li>
         <li (click)="selectPage()" *ngIf="!isAuthenticated">
           <a
             class="nav-bar-link"

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../models/User';
 import { ErrorHandlerService } from './error-handler.service';
 import { Router } from '@angular/router';
@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UserService {
-  private url = 'http://localhost:3500';
+  private url = 'https://localhost:7291/api/Users/GetUserStatus';
 
-  userId: Pick<User, 'id'> | undefined;
+  userId = '46401a0a-5653-45f8-8611-1e945ec14c46';
 
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }),
@@ -25,13 +25,16 @@ export class UserService {
   ) {}
 
   //curent user info
-  fetchUser(): Observable<User[]> {
+  fetchUser(userId: string): Observable<User> {
+    const urlWithParams = `${this.url}?userId=${userId}`;
     return this.http
-      .get<User[]>(`${this.url}/user`, { responseType: 'json' })
+      .get<{ userStatus: string }>(urlWithParams, { responseType: 'json' })
       .pipe(
-        catchError(
-          this.errorHandlerService.handleError<User[]>('fetchUser', [])
-        )
+        map(
+          (response) =>
+            ({ ...response, status: response.userStatus } as unknown as User)
+        ),
+        catchError(this.errorHandlerService.handleError<User>('fetchUser'))
       );
   }
 

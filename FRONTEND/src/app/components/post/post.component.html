@@ -1,36 +1,56 @@
 <div class="post-container">
-  <div class="form-container">
-    <form [formGroup]="postForm" (ngSubmit)="postHoliday()" class="post-form">
-      <div class="post-field">
-        <label> Title </label>
-        <input type="text" formControlName="title" placeholder="Give a title" />
-      </div>
-      <div class="post-field">
-        <label> Location </label>
-        <input
-          type="text"
-          formControlName="location"
-          placeholder="Where was your holiday?"
+  <div class="sub-post-container">
+    <div class="user-section">
+      <div class="user-photo">
+        <img
+          src="assets/img/user.png"
+          class="img-user"
+          alt="user photo"
+          width="270"
+          height="250"
         />
       </div>
-      s
-      <div class="post-field">
-        <label> Description </label>
-        <input
-          type="text"
-          formControlName="description"
-          placeholder="Say something about your holiday"
-        />
-      </div>
-      <div class="post-field">
-        <label> Start Date </label>
-        <input type="date" formControlName="startDate" name="startdate" />
-      </div>
-      <div class="post-field">
-        <label> End Date </label>
-        <input type="date" formControlName="endDate" name="enddate" />
-      </div>
-      <button type="submit" class="btn btn--form">Add new</button>
-    </form>
+      <div class="user-info">Status: {{ (userCategory$ | async)?.status }}</div>
+
+      <!-- <div class="user-info">Nivel utilizator:</div> -->
+    </div>
+    <div class="form-container">
+      <form [formGroup]="postForm" (ngSubmit)="postHoliday()" class="post-form">
+        <div class="post-field">
+          <label> Title </label>
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="Give a title"
+          />
+        </div>
+        <div class="post-field">
+          <label> Location </label>
+          <input
+            type="text"
+            formControlName="location"
+            placeholder="Where was your holiday?"
+          />
+        </div>
+        s
+        <div class="post-field post-field-description">
+          <label> Description </label>
+          <textarea
+            rows="4"
+            formControlName="description"
+            placeholder="Say something about your holiday"
+          ></textarea>
+        </div>
+        <div class="post-field">
+          <label> Start Date </label>
+          <input type="date" formControlName="startDate" name="startdate" />
+        </div>
+        <div class="post-field">
+          <label> End Date </label>
+          <input type="date" formControlName="endDate" name="enddate" />
+        </div>
+        <button type="submit" class="btn btn--form">Post</button>
+      </form>
+    </div>
   </div>
 </div>

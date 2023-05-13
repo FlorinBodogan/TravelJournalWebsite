@@ -1,0 +1,59 @@
+.holidays-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #111;
+  height: fit-content;
+  width: 100vw;
+  display: flex;
+  gap: 2vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.holiday {
+  height: fit-content;
+  margin-top: 20vh;
+  margin-bottom: 5vh;
+  padding-bottom: 3vh;
+  width: 40vw;
+  display: flex;
+  gap: 2vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+}
+
+.img-user {
+  padding: 2rem;
+  width: 40vw;
+  height: 50vh;
+}
+
+.title {
+  padding-top: 2rem;
+  color: #fff;
+}
+
+.location {
+  color: #fff;
+  font-size: 2rem;
+}
+
+.description {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.startDate {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.endDate {
+  font-size: 2rem;
+  color: #fff;
+}

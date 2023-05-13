@@ -24,11 +24,11 @@ export class HomeComponent implements OnInit {
     this.authService.isUserLogged$.subscribe((isLogged) => {
       this.isAuthenticated = isLogged;
     });
-    this.userInfo$ = this.fetchUser();
-    this.userId = this.userService.userId;
+    // this.userInfo$ = this.fetchUser();
+    // this.userId = this.userService.userId;
   }
 
-  fetchUser(): Observable<User[]> {
-    return this.userService.fetchUser();
-  }
+  // fetchUser(): Observable<User[]> {
+  //   return this.userService.fetchUser();
+  // }
 }
