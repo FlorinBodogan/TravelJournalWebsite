@@ -100,6 +100,37 @@ namespace TravelJournalAPI.Server.Controllers
             return CreatedAtAction("Get", user);
         }
 
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<User>> Login([FromBody] User user)
+        {
+
+            var authenticatedUser = await _userRepository.GetUserByEmail(user.Email);
+
+            if (IsValidCredentials())
+            {
+                var authenticatedUserModel = new User()
+                {
+                    Id = authenticatedUser.Id,
+                    Name = authenticatedUser.Name,
+                    Email = authenticatedUser.Email
+                };
+
+                return Ok(authenticatedUserModel);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
+
+        private bool IsValidCredentials()
+        {
+            return true;
+        }
+
+
         [HttpPost("PostHoliday")]
         public async Task<ActionResult<HolidayModel>> PostHoliday([FromBody] HolidayModel holiday)
         {

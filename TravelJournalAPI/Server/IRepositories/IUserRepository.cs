@@ -10,6 +10,7 @@ namespace TravelJournalAPI.Shared.IRepositories
     public interface IUserRepository
     {
         public Task<bool> CheckIfEmailExistsAsync(string email);
+        public Task<string> GetUserByEmail(string email);
 
         public Task<string> AddAsync(User user);
 

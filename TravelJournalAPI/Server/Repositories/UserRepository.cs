@@ -34,6 +34,12 @@ namespace TravelJournalAPI.Shared.Repositories
             return await _dataContext.Users.AnyAsync(u => u.Email == email);
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+
         //public async Task<User> GetUserInfo(string email, string password)
         //{
         //    try
@@ -81,6 +87,9 @@ namespace TravelJournalAPI.Shared.Repositories
             return await _dataContext.Holidays.Where(h => h.UserId == userId).ToListAsync();
         }
 
-       
+        Task<string> IUserRepository.GetUserByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
