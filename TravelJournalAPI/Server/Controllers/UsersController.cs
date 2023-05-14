@@ -102,18 +102,18 @@ namespace TravelJournalAPI.Server.Controllers
 
 
         [HttpPost("Login")]
-        public async Task<ActionResult<User>> Login([FromBody] User user)
+        public async Task<ActionResult<LoginModel>> Login([FromBody] LoginRequestModel requestModel)
         {
+            var authenticatedUser = await _userRepository.GetUserByEmail(requestModel.Email);
 
-            var authenticatedUser = await _userRepository.GetUserByEmail(user.Email);
-
-            if (IsValidCredentials())
+            if (await IsValidCredentialsAsync(requestModel.Email, requestModel.Password))
             {
-                var authenticatedUserModel = new User()
+                var authenticatedUserModel = new LoginModel()
                 {
                     Id = authenticatedUser.Id,
+                    Email = authenticatedUser.Email,
                     Name = authenticatedUser.Name,
-                    Email = authenticatedUser.Email
+                    Password = authenticatedUser.Password
                 };
 
                 return Ok(authenticatedUserModel);
@@ -125,9 +125,18 @@ namespace TravelJournalAPI.Server.Controllers
         }
 
 
-        private bool IsValidCredentials()
+        private async Task<bool> IsValidCredentialsAsync(string email, string password)
         {
-            return true;
+            var user = await _userRepository.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                // Email-ul nu există în sistem
+                return false;
+            }
+
+            // Verifică dacă parola este corectă
+            return user.Password == password;
         }
 
 

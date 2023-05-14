@@ -10,9 +10,11 @@
           height="250"
         />
       </div>
-      <div class="user-info">Status: {{ (userCategory$ | async)?.status }}</div>
-
-      <!-- <div class="user-info">Nivel utilizator:</div> -->
+      <div class="user-info">
+        <ng-container *ngIf="userCategory$ | async as userCategory">
+          Status: {{ userCategory.status || "Nestabilit" }}
+        </ng-container>
+      </div>
     </div>
     <div class="form-container">
       <form [formGroup]="postForm" (ngSubmit)="postHoliday()" class="post-form">

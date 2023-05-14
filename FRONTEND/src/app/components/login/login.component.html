@@ -4,7 +4,7 @@
       <div>
         <h1 class="login-title">Sign In</h1>
       </div>
-      <form (ngSubmit)="login()" class="login-form">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
         <div class="login-field">
           <label for="user-name">Email</label>
           <input

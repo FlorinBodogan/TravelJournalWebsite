@@ -16,11 +16,15 @@ namespace TravelJournalAPI.Server.Services
         public async Task<string> GetUsersStatusById(Guid id)
         {   
            var holidays = await _userRepository.GetHolidayById(id);
-            if (holidays.Count() != 0)
+            if (holidays.Count() >= 0)
             {
                 var numberOfHolidays = holidays.Count();
 
-                if (numberOfHolidays > 2 && numberOfHolidays <= 4)
+                if(numberOfHolidays == 0)
+                {
+                    return "Undefined";
+                }
+                else if (numberOfHolidays > 2 && numberOfHolidays <= 4)
                 {
                     return "Explorer";
                 }

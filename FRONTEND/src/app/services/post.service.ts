@@ -10,7 +10,7 @@ import { ErrorHandlerService } from './error-handler.service';
   providedIn: 'root',
 })
 export class PostService {
-  userId = '46401a0a-5653-45f8-8611-1e945ec14c46';
+  userId = localStorage.getItem('userId')!.replace(/"/g, '');
 
   private url = 'https://localhost:7291/api/Users/PostHoliday';
   private url2 = 'https://localhost:7291/api/Users/GetHoliday';

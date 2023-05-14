@@ -17,7 +17,7 @@ export class HolidaysComponent implements OnInit {
     this.holidays$ = this.fetchHolidays();
   }
 
-  userId = '46401a0a-5653-45f8-8611-1e945ec14c46';
+  userId = localStorage.getItem('userId')!.replace(/"/g, '');
   //afisare vacante
   fetchHolidays(): Observable<Post[]> {
     return this.postService.fetchHoliday(this.userId);

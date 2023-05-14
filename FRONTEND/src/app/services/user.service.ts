@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class UserService {
   private url = 'https://localhost:7291/api/Users/GetUserStatus';
 
-  userId = '46401a0a-5653-45f8-8611-1e945ec14c46';
+  userId = localStorage.getItem('userId')!.replace(/"/g, '');
 
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' }),

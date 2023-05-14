@@ -12,10 +12,11 @@ import jwt_decode from 'jwt-decode';
 })
 export class AuthService {
   private url = 'https://localhost:7291/api/Users/PostUser';
+  private url2 = 'https://localhost:7291/api/Users/Login';
 
   isUserLogged$ = new BehaviorSubject<boolean>(false);
 
-  userId: Pick<User, 'id'> | undefined;
+  userId = localStorage.getItem('userId')!.replace(/"/g, '');
 
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -44,11 +45,11 @@ export class AuthService {
     password: Pick<User, 'password'>;
   }): Observable<{ userId: Pick<User, 'id'>; user: User }> {
     return this.http
-      .post(`${this.url}`, { email, password }, this.httpOptions)
+      .post(`${this.url2}`, { email, password }, this.httpOptions)
       .pipe(
         first(Object),
         tap((response) => {
-          localStorage.setItem('autentificat', JSON.stringify('user'));
+          localStorage.setItem('userId', JSON.stringify(response.id));
           this.isUserLogged$.next(true);
           this.router.navigate(['home']);
         }),
