@@ -10,25 +10,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  userId: Pick<User, 'id'> | undefined;
-  userInfo$: Observable<User[]> | undefined;
-
   isAuthenticated = true;
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.isUserLogged$.subscribe((isLogged) => {
       this.isAuthenticated = isLogged;
     });
-    // this.userInfo$ = this.fetchUser();
-    // this.userId = this.userService.userId;
   }
-
-  // fetchUser(): Observable<User[]> {
-  //   return this.userService.fetchUser();
-  // }
 }

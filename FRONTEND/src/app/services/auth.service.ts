@@ -16,7 +16,7 @@ export class AuthService {
 
   isUserLogged$ = new BehaviorSubject<boolean>(false);
 
-  userId = localStorage.getItem('userId')!.replace(/"/g, '');
+  userId: string | null | undefined;
 
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

@@ -40,7 +40,6 @@ export class HeaderComponent {
     this.menuClass = '';
   }
 
-  //auth
   isAuthenticated = false;
 
   constructor(private authService: AuthService, private router: Router) {}

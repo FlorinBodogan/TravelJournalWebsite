@@ -26,17 +26,17 @@
             class="heading-tertiary heading-tertiary--hero"
             *ngIf="isAuthenticated"
           ></h3>
-          <div *ngFor="let user of userInfo$ | async">
+          <div>
             <h1
               \
               class="heading-primary heading-primary--hero"
               *ngIf="isAuthenticated"
             >
-              Welcome back, {{ user.name }}!
+              Welcome back!
             </h1>
           </div>
           <p class="hero-text" *ngIf="isAuthenticated">Review your holidays.</p>
-          <a routerLink="/recipes" class="btn btn--home" *ngIf="isAuthenticated"
+          <a routerLink="/post" class="btn btn--home" *ngIf="isAuthenticated"
             >Holidays</a
           >
         </div>

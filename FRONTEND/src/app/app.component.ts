@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'TravelJournal';
-
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
