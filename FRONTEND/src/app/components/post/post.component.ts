@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { PostService } from 'src/app/services/post.service';
@@ -23,7 +24,8 @@ export class PostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   createFormGroup(): FormGroup {
@@ -56,7 +58,10 @@ export class PostComponent implements OnInit {
     if (userId !== null) {
       this.postService
         .postHoliday(this.postForm.value, userId)
-        .subscribe((message) => console.log(message));
+        .subscribe((message) => {
+          console.log(message);
+          this.userCategory$ = this.fetchUser();
+        });
     } else {
       console.log('userId is null');
     }
