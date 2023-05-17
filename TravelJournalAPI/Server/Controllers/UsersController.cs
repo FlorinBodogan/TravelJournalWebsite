@@ -61,32 +61,6 @@ namespace TravelJournalAPI.Server.Controllers
             return holidays;
         }
 
-        // de sters
-        [HttpGet("GetAllUsers")]
-        public async Task<ActionResult<IEnumerable<User>>> AllUsers()
-        {
-            var users = await _userRepository.GetAllUsers();
-
-            var userList = new List<User>();
-           
-            foreach (var user in users)
-            {
-                var newUser = new User()
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Holidays = user.Holidays,
-                    Status = user.Status,
-                    Password = user.Password,
-                };
-
-                userList.Add(newUser);
-            }
-            return userList;
-        }
-
-
         // POST api/<UsersController>
         [HttpPost("PostUser")]
         public async Task<ActionResult<UserModel>> PostUser([FromBody]UserModel user)
@@ -124,21 +98,17 @@ namespace TravelJournalAPI.Server.Controllers
             }
         }
 
-
         private async Task<bool> IsValidCredentialsAsync(string email, string password)
         {
             var user = await _userRepository.GetUserByEmail(email);
 
             if (user == null)
             {
-                // Email-ul nu există în sistem
                 return false;
             }
 
-            // Verifică dacă parola este corectă
             return user.Password == password;
         }
-
 
         [HttpPost("PostHoliday")]
         public async Task<ActionResult<HolidayModel>> PostHoliday([FromBody] HolidayModel holiday)
@@ -163,18 +133,6 @@ namespace TravelJournalAPI.Server.Controllers
             {
                 UserStatus = status,
             };
-        }
-
-        // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

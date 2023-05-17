@@ -34,28 +34,13 @@ namespace TravelJournalAPI.Shared.Repositories
             return await _dataContext.Users.AnyAsync(u => u.Email == email);
         }
 
-
-
-        //public async Task<User> GetUserInfo(string email, string password)
-        //{
-        //    try
-        //    {
-        //        return await _dataContext.Users.FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
-        //    }
-        //    catch (Exception ex)
-        //    { 
-
-        //    }           
-        //}
         public async Task<string> AddHolidayAsync(Holiday holiday)
         {
             await _dataContext.Holidays.AddAsync(holiday);
 
-            // obține utilizatorul corespunzător concediului prin proprietatea de navigare inversă
             var user = await _dataContext.Users.FindAsync(holiday.UserId);
             if (user != null)
             {
-                // adaugă concediul la colecția de concedii a utilizatorului prin proprietatea de navigare inversă
                 user.Holidays.Add(holiday);
                 _dataContext.Users.Update(user);
                 await _dataContext.SaveChangesAsync();
@@ -67,16 +52,6 @@ namespace TravelJournalAPI.Shared.Repositories
 
             return "Holiday created!";
         }
-
-        public async Task<IEnumerable<User>> GetAllUsers()
-        {
-            return await _dataContext.Users.Include(u => u.Holidays).ToListAsync();
-        }
-
-        //public async Task<IEnumerable<User>> GetAllUsers()
-        //{
-        //    return await _dataContext.Users.ToListAsync();
-        //}
 
         public async Task<IEnumerable<Holiday>> GetHolidayById(Guid userId)
         {
