@@ -34,7 +34,7 @@ public class UserServiceTests
     }
 
     [Test]
-    public async Task GetUsersStatusById_WithFewHolidays_ShouldReturnExplorer()
+    public async Task GetUsersStatusById_WithFewHolidays_ShouldReturnBeginner()
     {
         // Arrange
         var userId = Guid.NewGuid();
