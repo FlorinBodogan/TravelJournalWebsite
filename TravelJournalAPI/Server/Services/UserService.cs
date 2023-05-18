@@ -13,6 +13,8 @@ namespace TravelJournalAPI.Server.Services
             _userRepository = userRepository;
         }
 
+        public UserService() { }
+
         public async Task<string> GetUsersStatusById(Guid id)
         {   
            var holidays = await _userRepository.GetHolidayById(id);
